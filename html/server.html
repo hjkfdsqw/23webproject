@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>서버구축</title>
+  <link rel="stylesheet" href="../css/mystyle.css">
+  <style>
+  ul.b {
+  list-style-type: disc;
+}
+
+
+  </style>
+</head>
+<body>
+  <svg height="120" width="100%">
+    <!-- <defs> 요소는 그래픽 객체를 정의, <def> 요소 내에서 만든 객체는 출력되는 것은 아님
+         나중에 사용하려면 fill 속성에 참조 연결하거나 <use> 요소를 이용해야함 
+         <def> 요소 내에 선형그레디언트 정의 -->
+    <defs>
+      <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+        <stop offset="100%" style="stop-color:rgb(0,255,255);stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    <rect fill="url(#grad1)" x="0" y="0" width="100%" height="120" />
+    <text fill="#cccccc" font-size="60" font-family="Verdana" x="50" y="80">학업계획 및 기록</text>
+    Sorry, your browser does not support inline SVG.
+  </svg>
+    
+  <ul>
+    <li><a class="active" href="">Home</a></li>
+    <li><a href="./data structure.html">자료구조</a></li>
+    <li><a href="./server.html">서버구축</a></li>
+    <li><a href="./vision.html">나의 비전</a></li>
+    <li class="dropdown">
+      <a href="#" class="dropbtn">관심있는 사이트</a>
+      <div class="dropdown-content" >
+        <a href="https://ahnlab.recruiter.co.kr/appsite/company/index">안렙 채용</a>
+        <a href="http://www.kitribob.kr">BOB</a>
+        <a href="https://openai.com/blog/chatgpt">ChatGPT</a>
+      </div>
+    </li>
+  </ul>
+
+  <h1>서버구축 및 관리</h1>
+  <h2>실습내용 및 이론 정리</h2>
+  
+  <Dl class="square-list">
+    <Di>1.Linear RAID, RAID 0, RAID 1, RAID5 구현</Di>
+    <Di>2.원격 접속 서버인 텔넷, SSH 서버 구축</Di>
+    <Di>3.마스터 네임 서버 구축</Di>
+    <Di>4.메일 서버 설치와 운영</Di>
+    <Di>5.MariaDB 데이터베이스 생성과 운영</Di>
+    <Di>6.APM 환경을 구성하여 워드프레스 설치 및 클라우드 설치/운영 실습</Di>
+  </Dl>
+  
+  <h3>1.Linear RAID, RAID 0, RAID 1, RAID5 구현</h3>
+  <p>9개의 SCSI 하드디스크를 장착하고 각각의 RAID를 구현할 것이다.</p>
+  <p>RAID는 여러 개의 하드디스크를 하나의 하드디스크처럼 사용하는 방식으로, 비용을 절감하면서도 신뢰성을 높이며 성능까지 향상시킬 수 있다.</p>
+  <p>RAID의 종류는 크게 하드웨어 RAID와 소프트웨어 RAID로 나눌 수 있다.</p>
+  <p>하드웨어 RAID-하드웨어 제조업체에서 여러 개의 하드디스크를 연결한 장비를 만들어 그 자체를 공급하는 것으로,<br> 좀 더 안정적이고 각 제조업체에서 기술 지원을 받을 수 있기 때문에 많이 선호한다.</p>
+  <p>소프트웨어 RAID-고가의 하드웨어 RAID 대안으로, 하드디스크만 여러 개 있다면 운영체제에서 지원하는 방식이다.<br> 하드웨어 RAID와 비교 시 신뢰성이나 속도가 떨어지나 저렴한 비용으로 더 안전하게 데이터를 저장할 수 있다는 장점이 있다.</p>
+  <p>실제 가장 많이 사용되는 RAID방식인 Linear RAID, RAID 0, RAID 1, RAID5에 대하여 알아보자</p>
+  <p>*Linear RAID</p>
+  <p>2개 이상의 하드디스크를 1개의 볼륨으로 사용하며 첫 번째 하드디스크에 데이터가 완전히 저장되지 않는다면 다음 하드디스크는 전혀 사용되지 않는다.</p>
+  <p>*RAID 0</p>
+  <p>모든 하드디스크를 동시에 사용한다. 여러 개의 하드디스크를 동시에 저장되는 방식을 ‘스트라이핑-Stripping’ 방식이라고 한다.<br> 이처럼 저장되는 시간 또는 속도적인 측면에서 RAID 방식 중 성능이 가장 뛰어나고, 하드디스크 개수가 가진 총 용량을 모두 사용하므로 공간 효울이 아주 좋다.<br><br> 하지만 여러 개의 하드디스크 중 하나가 고장 날 경우 모든 데이터를 잃는다. 그러므로 RAID 0는 빠른 성능을 요구하되, 전부 잃어버려도 무방한 자료를 저장하는데 적합하다.</p>
+  <p>*RAID 1</p>
+  <p>이 방식의 핵심은 ‘미러링-mirroring’이다. 동일한 데이터의 거울을 만드는 것이다. 즉 데이터를 저장하는데 2배의 용량을 사용하고, 이 말은 결국 총 하드디스크 용량의 절반 밖에 사용하지 못한다.</p>
+  <p>RAID 1의 장점은 결함 허용을 제공한다. 2개의 하드디스크 중 하나가 고장나도 데이터는 손상되지 않는다.<br>  단점은 실제 계획했던 저장 공간의 2배가 필요하다. 이는 비용이 2배로 든다는 뜻이다. 즉, 공간 효율이 떨어진다. 그래서 이 방식은 비용이 많이 들더라도 중요도가 높은 데이터들을 저장할 때 사용한다.<br>  또한 저장속도는 예상과 다르게 빠르지도 느리지도 않다</p>
+  <p>*RAID 5</p>
+  <p>RAID 5는 최소한 3개 이상의 하드디스크가 있어야 구성할 수 있다. 대부분 5개 이상의 하드디스크로 구성하며, 하드디스크에 오류가 발생하면 ‘패리티’를 이용하여 데이터를 복구할 수 있다.</p>
+  <p>이 방식의 장점은 어느 정도 결함을 허용하며 저장공간의 효율이 좋다. 하드디스크가 N개 일 때, N-1 만큼의 공간을 사용할 수 있다.<br> 하지만 2개의 하드디스크가 동시에 고장 난다면 모든 데이터를 전혀 복구할 수 없다.</p>
+  <p>-----------------------------------------------------------------------------------------------------------------------------------</p>
+  <img src="../image/server-1.png" alt="서버1">
+  <p>1.	Linear Raid,Raid0,Raid1,Raid5 를 각각 구축 하였다. 정상적으로 raid에 마운트 되어 있는 것을 확인할 수 있다.</p>
+  <br>
+  <br>
+  <img src="../image/server-2.png" alt="서버2">
+  <p>2.	ls -l /dev/sd* 명령으로 장치이름을 확인하였다.</p>
+  <br>
+  <br>
+  <img src="../image/server-3.png" alt="서버3">
+  <p>3.Raid Linear,0,1,5 구축</p>
+  <br>
+  <br>
+  <img src="../image/server-4.png" alt="서버4">
+  <p>4.재부팅 전 mdadm의 버그 때문에 몇가지 설정을 해야한다. 그중 gedit/etc/maddm/mdadm.conf 명령으로 설정파일을 연 후 각 행을 편집하여 저장한다.</p>
+  <br>
+  <br>
+  <br>
+  <h3>2.원격 접속 서버인 텔넷, SSH 서버 구축</h3>
+  <p>*텔넷 서버</p>
+  <p>오랫동안 전통적으로 사용되어 온 원격 접속 방법, 현재는 오래되어 보안 등에 취약하기 때문에 사용되지 않으며, 텔넷에 보안 기능을 더해서 사용한다.</p>
+  <p>원격지의 PC에서 리눅스 서버에 접속하면 서버 앞에 앉아서 직접 텍스트 모드로 작업하는 것과 동일한 효과를 낼 수 있다.</p>
+  <p>*텔넷 서버 구축 과정</p>
+  apt install xinetd telnetd #텔넷 서버 설치
+   <br> /etc/xinetd.d/telnet 파일편집 #설정 파일 편집 
+   <br> adduser 사용자명 #텔넷 전용 사용자 생성 
+   <br> systemctl restart xinetd #텔넷 서비스 가동 
+   <br> ufw allow 23/tcp #방화벽 설정(포트 열기) 
+   <br> telnet 서버IP #클라이언트에서 접속 
+    </p>
+  <p>*OpenSSH 서버</p>
+  <p>텔넷과 용도는 동일하지만 보안이 강화된 서버이다. 
+    텔넷의 문제점-서버와 클라이언트 사이에서 데이터를 전송할 때 암호화하지 않아 해킹에 노출된다.<br>
+    SSH는 데이터 전송 시 패킷 암화화가 이루어져 보안문제를 해결할 수 있다.
+    </p>
+  <p>telnet</p>
+  <p>ssk:telnet+암호</p>
+  <p>XRDP:ssh+windows</p>
+  <p>telnet,ssh:텍스트 모드의 명령만 사용하여 속도가 빠르다.</p>
+  <p>-----------------------------------------------------------------------------------------------------------------------------------</p>
+  <img src="../image/server-a.png" alt="서버2.1">
+  <p>1.	Ubuntu에서 telnet구축한 후 클라이언트(Kubuntu)에서 주소 확인하는 화면을 캡처함.</p>
+  <br>
+  <br>
+  <img src="../image/server-b.png" alt="서버2.2">
+  <p>2.	Windows 관리자 모드에서 ifconfig를 실행한 화면</p>
+  <br>
+  <br>
+  <img src="../image/server-c.png" alt="서버2.3">
+  <p>3.	클라이언트에서 ssh실행 확인</p>
+  <br>
+  <br>
+  <img src="../image/server-d.png" alt="서버2.4">
+  <p>4.	iputty로 telnet접속</p>
+  <br>
+  <br>
+  <img src="../image/server-e.png" alt="서버2.5">
+  <p>5.	iputty로 ssh접속</p>
+  <br>
+  <br>
+  <br>
+  <h3>3.마스터 네임 서버 구축</h3>
+  <p></p>
+  <p></p>
+  <p></p>
+  <p></p>
+  <p></p>
+  <p></p>
+
+</body>
+</html>

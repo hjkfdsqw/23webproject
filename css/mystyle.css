@@ -2,14 +2,16 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow: visible;  
+  overflow: visible;
   /* 드롭다운메뉴가 확장될 때 메뉴 공간이 부족하여 오버플로우 발생
      overflow: visible; 은 오버클로우되는 콘텐츠를 잘라내지 않고 
      영역 범위 밖까지 콘텐츠를 출력함
      overflow: hidden은 오버클로우되는 콘텐츠를 잘라냄. */
-  background-color: #2d9ea7a4;
+     background-color: #2d9ea7a4;
   position: sticky;
   top:0px;
+  display:flex;
+  flex-direction:row;
   /* position: sticky는 미리 정의한 위치에 도달하기 전에는 
                다른 요소와 함께 스크롤 됨
      위치를 정의하기 위해 left, right, top, bottom 속성 사용
@@ -19,10 +21,15 @@ ul {
      스크롤 할 때 다른 요소는 함께 스크롤되지만 
      ul요소는 상단 0px 위치에 고정되어 움직이지 않음.  */
 }
-
-li {
+Dl,
+Di {
   /* float: left; */
+  list-style-type: upper-roman;
+  display: flex;
+  flex-direction: column;
   display: inline-block;
+  background-color: #fafafa;
+
   /* 가로방향으로 메뉴를 만들기 위해 두가지 방법 모두 사용 가능
      float: left;  => li항목을 float(부유)시키고 왼쪽부터 차례로 배치 
      display: inline-block; => 기본적으로 li는 display: block 요소임
@@ -117,3 +124,23 @@ li.dropdown {
 .dropdown:hover .dropdown-content {
   display: block; /* 마우스 오버시 드롭다운 메뉴가 보이도록 설정 */
 }
+
+.custom-list{
+  list-style-type: upper-roman;
+  display: flex;
+  flex-direction: column;
+}
+
+.square-list {
+  display: flex;
+  flex-direction: column;
+  list-style-type:square;
+  
+}
+
+
+p {
+  line-height: 100%;
+}
+
+
