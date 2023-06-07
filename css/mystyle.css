@@ -21,13 +21,13 @@ ul {
      스크롤 할 때 다른 요소는 함께 스크롤되지만 
      ul요소는 상단 0px 위치에 고정되어 움직이지 않음.  */
 }
-Dl,
-Di {
+
+ol li {
   /* float: left; */
   list-style-type: upper-roman;
-  display: flex;
+  /*display: flex;
   flex-direction: column;
-  display: inline-block;
+  display: inline-block;*/
   background-color: #fafafa;
 
   /* 가로방향으로 메뉴를 만들기 위해 두가지 방법 모두 사용 가능
