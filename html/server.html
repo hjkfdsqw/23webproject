@@ -12,6 +12,29 @@
   ul.b {
   list-style-type: disc;
 }
+body{
+  color:white;
+}
+body{
+  background-image:url("../image/ethernet.jpg");
+}
+body {
+    position: relative;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../image/ethernet.jpg");
+    background-size: cover;
+    filter: blur(20px); /* 흐림 효과 적용 */
+    z-index: -1; /* 배경을 요소 뒤로 이동 */
+  }
+
 
 
   </style>
@@ -138,12 +161,23 @@
   <br>
   <br>
   <h3>3.마스터 네임 서버 구축</h3>
+  <p>마스터 네임 서버는 도메인에 속해 있는 컴퓨터의 이름을 관리하고, 외부에서 컴퓨터 IP주소를 알고자 할 때 해당 컴퓨터의 IP주소를 알려주는 네임서버이다.</p>
+  <p>자신만의 도메인이 있어 따로 관리한다.</p>
+  <img src="../image/server-3.1.png" alt="서버3.1">
+  <p>client를 실행한 후 앞에서 구축한 Server를 네임서버로 사용하였다.</p>
+  <br>
+  <img src="../image/server-3.2.png" alt="서버3.2">
+  <p>nano /etc/resolv.conf를 열고 앞서 구축한 네임서버로 변경 후 저장, 네임서버가 온전히 작동하는지 확인한다.</p>
+  <br>
+  <img src="../image/server-3.3.png" alt="서버3.3">
+  <p>client에서 마스터 네임 서버의 정상적인 작동을 확인,</p>
+  <br>
   <p></p>
   <p></p>
-  <p></p>
-  <p></p>
-  <p></p>
-  <p></p>
+  <h3>앞으로의 계획</h3>
+  <p>리눅스 환경에서의 실습이 처음이라 수업을 따라가는데 약간 어색함이 있었다.그래서 수업 속도를 맞추기 위해 파일 수정을 vi에디터가 아닌 gedit 에디터를 사용하였는데</p>
+  <p>나에게 이점이 조금 아쉬웠고 개선의 필요성을 느껴 이번 방학기간동안 리눅스 환경에 익숙해지고 vi에디터를 숙달하기 위한 노력을 기울일 것이다.</p>
+  <p>또한 평소 보안업계에서 일하는 것을 희망하여 지금까지 구축한 서버보안에 대한 학습을 진행할 것이다.</p>
 
 </body>
 </html>
